@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-name # Nama Deployment
+  namespace: namespace 
+  labels:
+    label-key1: label-value2 # Label Aplikasi
+spec:
+  replicas: 5 # Banyaknya Replicas
+  selector:
+    matchLabels:
+      label-key1: label-value2 # Label Aplikasi
+  template:
+    metadata:
+      labels:
+        label-key1: label-value2 # Label Aplikasi
+    spec:
+      containers:
+      - name: container-name # Nama Container
+        image: image-name # Image yang akan dijalankan
+        ports:
+        - containerPort: 8080 # Port yang digunakan aplikasi
+
+        volumeMounts: # VolumeMounts adalah volumes yang aplikasi gunakan.
+        - mountPath: /path # Path yang digunakan oleh aplikasi
+          name: volume-name # Nama Volume
+
+      volumes:
+      # Volumes adalah persistent storage yang aplikasi gunakan.
+      - name: volume-name # Name Volume
+        persistentVolumeClaim:
+          claimName: pvc-name # Nama persistent volume claim
