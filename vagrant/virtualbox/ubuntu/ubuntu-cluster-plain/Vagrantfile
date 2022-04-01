@@ -1,0 +1,24 @@
+IMAGE_NAME = "ubuntu/bionic64"
+X = 2
+
+#$script = <<-SCRIPT
+#apt-get upgrade
+#SCRIPT
+
+Vagrant.configure("2") do |config|
+    config.vm.box = IMAGE_NAME
+    #config.vm.provision "shell", inline: $script
+    config.vm.synced_folder ".", "/vagrant_data", disabled: true
+    config.vm.provider "virtualbox" do |vb|
+      vb.cpus = 2
+      vb.linked_clone = true
+      vb.memory = 2048
+    end
+
+    (1..X).each do |i|
+        config.vm.define "ubuntu-node-#{i}" do |node|
+            node.vm.network "private_network", ip: "10.10.10.#{i + 10}"
+            node.vm.hostname = "ubuntu-node-#{i}"
+        end
+    end
+end
