@@ -4,6 +4,10 @@
 
 For example, you have a Server that has virsh installed on it, and you want to direct SSH to the vm without having to SSH to your server first.
 
+## Edit Script
+
+First of All, u need to edit `portforward.sh` script. Change `{IP Public}` to your Public IP
+
 ## How To Use
 
 ```
@@ -15,6 +19,7 @@ virsh list
 
 ./portforward.sh
 
+--output--
 IP VM who want to exposed (x.x.x.x:port):192.168.1.10:22
 Enter Port Access:8090
 
